@@ -1,42 +1,52 @@
 import { render } from 'preact';
+import { useState } from 'preact/hooks';
 
-import preactLogo from './assets/preact.svg';
+import { init, validatePlacedWord } from './js/gameLogic';
+import Board from './components/Board';
+import Rack from './components/Rack';
+import Input from './components/Input';
+
 import './style.css';
 
 export function App() {
+	const [placedWord, setPlacedWord] = useState('placed');
+	const [placedWordError, setPlacedWordError] = useState('error');
+	const [addedWord, setAddedWord] = useState('added');
+	const [points, setPoints] = useState(999);
+	const [tiles, setTiles] = useState('abcdefg');
+	const [tilesError, setTilesError] = useState('error');
+
+	function placeWord(word: string) {
+		const result = validatePlacedWord(word);
+		if (!result.valid) {
+			setPlacedWordError(result.error || 'Invalid word!');
+			return;
+		}
+
+		setPlacedWordError('');
+		setPlacedWord(word);
+	}
+
+	function validateTiles(word: string) {
+		if (word.length < 1 || word.length > 7) {
+			setTilesError('Must be between 1 and 7 characters!');
+		} else {
+			setTiles(word);
+			setTilesError('');
+		}
+
+	}
+
 	return (
 		<div>
-			<a href="https://preactjs.com" target="_blank">
-				<img src={preactLogo} alt="Preact logo" height="160" width="160" />
-			</a>
-			<h1>Get Started building Vite-powered Preact Apps </h1>
-			<section>
-				<Resource
-					title="Learn Preact"
-					description="If you're new to Preact, try the interactive tutorial to learn important concepts"
-					href="https://preactjs.com/tutorial"
-				/>
-				<Resource
-					title="Differences to React"
-					description="If you're coming from React, you may want to check out our docs to see where Preact differs"
-					href="https://preactjs.com/guide/v10/differences-to-react"
-				/>
-				<Resource
-					title="Learn Vite"
-					description="To learn more about Vite and how you can customize it to fit your needs, take a look at their excellent documentation"
-					href="https://vitejs.dev"
-				/>
+			<Board placedWord={placedWord} addedWord={addedWord} points={points}/>
+			<Rack tiles={tiles}/>
+			<section class="inputs">
+				<Input label="Rack Tiles" value={tiles} error={tilesError} onChange={validateTiles}/>
+				<Input label="Placed Word" value={placedWord} error={placedWordError} onChange={placeWord}/>
 			</section>
-		</div>
-	);
-}
 
-function Resource(props) {
-	return (
-		<a href={props.href} target="_blank" class="resource">
-			<h2>{props.title}</h2>
-			<p>{props.description}</p>
-		</a>
+		</div>
 	);
 }
 
