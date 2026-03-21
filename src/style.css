@@ -29,25 +29,44 @@ body {
 }
 
 #app {
-	width: 1280px;
+	width: 980px;
 	margin: 0 auto;
 	text-align: center;
 }
 
 .board {
 	align-items: center;
-	border: 1px solid var(--ui-theme-4);
-	border-radius: 5px;
+	justify-content: center;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	min-height: 50vh;
+	min-height: 45vh;
 	position: relative;
 	width: 100%;
+	box-shadow: 0 0 4px var(--ui-theme-3);
+	border-radius: 5px;
+	padding: 32px 0;
+	margin-bottom: 72px;
 }
 
 .board * {
 	margin: 4px 0;
+}
+
+.placed-word {
+	margin-bottom: 32px;
+	transition: opacity 0.3s ease;
+}
+
+.placed-word.inactive {
+	opacity: 0.3;
+}
+
+.added-word {
+	transition: opacity 0.3s ease;
+}
+
+.added-word.inactive {
+	opacity: 0.3;
 }
 
 .button {
@@ -57,27 +76,38 @@ body {
 	padding: 8px 24px;
 	font-size: 32px;
 	display: inline-block;
+	transition: 0.15s box-shadow, 0.15s color, 0.15s border-color;
 }
 
 .button:hover {
 	border-color: var(--ui-theme-4);
 	color: var(--ui-theme-4);
+	box-shadow: 0 0 5px var(--ui-theme-3);
 }
 
 input[type="text"] {
 	background-color: transparent;
 	border: 1px solid var(--ui-theme-3);
-	color: var(--ui-theme-4);
+	color: var(--ui-theme-3);
 	padding: 12px 0;
 	text-transform: uppercase;
 	font-size: 32px;
 	max-width: 300px;
 	text-align: center;
+	transition: 0.15s box-shadow, 0.15s color, 0.15s border-color;
+}
+
+input[type="text"]:focus {
+	outline: none;
+	color: var(--ui-theme-4);
+	border-color: var(--ui-theme-4);
+	box-shadow: 0 0 5px var(--ui-theme-3);
 }
 
 .button:active {
 	background-color: var(--ui-theme-3);
 	color: var(--ui-theme-5);
+	box-shadow: 0 0 5px var(--ui-theme-4);
 }
 
 .inputs {
@@ -117,14 +147,14 @@ input[type="text"] {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	margin-top: 48px;
+	margin-bottom: 48px;
 }
 
-.rack-tiles {
+.tile-group {
 	display: inline-block;
-	margin-right: 32px;
+	margin: 0 32px;
 	min-width: 480px;
-	border-bottom: 1px solid var(--ui-theme-3);
+	border-bottom: 1px dashed var(--ui-theme-3);
 	min-height: 83px;
 }
 
@@ -134,8 +164,10 @@ input[type="text"] {
 	color: var(--ui-theme-4);
 	display: inline-block;
 	font-size: 24px;
-	padding: 14px 20px;
+	padding: 14px 0;
 	margin: 8px 4px;
+	box-shadow: 0 0 5px var(--ui-theme-3);
+	min-width: 54px;
 }
 
 .letter {

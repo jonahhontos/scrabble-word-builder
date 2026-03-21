@@ -30,8 +30,11 @@ export function App() {
 
 				placedRef.current = word.trim().toUpperCase();
 				setPlacedWord({ ...placedWord, word: word.trim().toUpperCase(), showError: false });
+			} else {
+				placedRef.current = '';
+				setPlacedWord({ ...placedWord, word: '', showError: false }); // Clear word and error when input is cleared
 			}
-		}, 200);
+		}, 100);
 	}
 
 	function validateTiles(tiles: string) {
@@ -47,13 +50,13 @@ export function App() {
 			
 			rackRef.current = tiles.trim().toUpperCase();
 			setRack({...rack, tiles: tiles.trim().toUpperCase(), showError: false });
-		}, 200);
+		}, 100);
 	}
 
 	function calculate() {
 		const highestScoringWord = calculateHighestScoringWord(rackRef.current, placedRef.current);
 		if (highestScoringWord) {
-			setAddedWord(highestScoringWord.word + ' (' + highestScoringWord.points + ' points)');
+			setAddedWord(highestScoringWord.word + ' ' + highestScoringWord.points); // Have to send both at once to get around Preact's batching of state updates
 		} else {
 			setAddedWord('');
 		}
