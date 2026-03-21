@@ -81,12 +81,33 @@ input[type="text"] {
 	color: var(--ui-theme-5);
 }
 
+.inputs {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 32px;
+	margin-top: 24px;
+}
+
+.input {
+	position: relative;
+}
+
+.inputs input {
+	display: block;
+	margin-top: 8px;
+}
+
 .error {
-	display: inline-block;
+	display: block;
 	color: var(--ui-error);
 	font-size: 0.9em;
 	margin-top: 4px;
 	padding: 4px 8px;
-	border: 1px solid var(--ui-error);
-	border-radius: 4px;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.error.visible {
+	opacity: 1;
 }

@@ -9,64 +9,67 @@ import Input from './components/Input';
 import './style.css';
 
 export function App() {
-	const [placedWord, setPlacedWord] = useState('');
-	const [placedWordError, setPlacedWordError] = useState('');
+	const [placedWord, setPlacedWord] = useState({ word: '', error: '', showError: false });
 	const [addedWord, setAddedWord] = useState('');
-	const [points, setPoints] = useState(0);
-	const [tiles, setTiles] = useState('');
-	const [tilesError, setTilesError] = useState('');
+	const [rack, setRack] = useState({ tiles: '', error: '', showError: false });
+	const [tick, setTick] = useState(0); // Used to force re-render for debounce
 
-	let placedWordDebounce : ReturnType<typeof setTimeout> | null = null;
-	let rackDebounce : ReturnType<typeof setTimeout> | null = null;
+	const rackRef = useRef('');
+	const placedRef = useRef('');
+	const placedWordDebounce = useRef<ReturnType<typeof setTimeout> | null>(null);
+	const rackDebounce = useRef<ReturnType<typeof setTimeout> | null>(null);
 
 	function placeWord(word: string) {
-		placedWordDebounce && clearTimeout(placedWordDebounce);
-		setPlacedWordError('');
-
-		placedWordDebounce = setTimeout(() => {
+		placedWordDebounce.current && clearTimeout(placedWordDebounce.current);
+		placedWordDebounce.current = setTimeout(() => {
 			if (word !== '') {
-				const result = validatePlacedWord(word.trim().toUpperCase(), tiles.toUpperCase());
+				const result = validatePlacedWord(word.trim().toUpperCase(), rack.tiles);
 				if (!result.valid) {
-					setPlacedWordError(result.error || 'Invalid word!');
+					setPlacedWord({ ...placedWord, error: result.error || 'Invalid word!', showError: true });
 					return;
 				}
 
-				setPlacedWord(word.trim().toUpperCase());
+				placedRef.current = word.trim().toUpperCase();
+				setPlacedWord({ ...placedWord, word: word.trim().toUpperCase(), showError: false });
 			}
-		}, 500);
+		}, 200);
 	}
 
 	function validateTiles(tiles: string) {
-		const result = validateRackTiles(tiles.trim().toUpperCase(), placedWord.trim().toUpperCase());
+		rackDebounce.current && clearTimeout(rackDebounce.current);
 
-		if (!result.valid) {
-			setTilesError(result.error || 'Invalid tiles!');
-			return;	
-		}
-		
-		setTiles(tiles.toUpperCase());
-		setTilesError('');
+		rackDebounce.current = setTimeout(() => {
+			const result = validateRackTiles(tiles.trim().toUpperCase(), placedWord.word);
+
+			if (!result.valid) {
+				setRack({ ...rack, error: result.error || 'Invalid tiles!', showError: true });
+				return;	
+			}
+			
+			rackRef.current = tiles.trim().toUpperCase();
+			setRack({...rack, tiles: tiles.trim().toUpperCase(), showError: false });
+		}, 200);
 	}
 
 	function calculate() {
-		const highestScoringWord = calculateHighestScoringWord(tiles, placedWord);
+		const highestScoringWord = calculateHighestScoringWord(rackRef.current, placedRef.current);
 		if (highestScoringWord) {
-			setAddedWord(highestScoringWord.word);
-			setPoints(highestScoringWord.points);
+			setAddedWord(highestScoringWord.word + ' (' + highestScoringWord.points + ' points)');
+			setTick(t => t + 1); // Force re-render to show updated points
 		} else {
 			setAddedWord('');
-			setPoints(0);
+			setTick(t => t + 1); // Force re-render to show updated points
 		}
 	}
 
 	return (
 		<div>
-			<Board placedWord={placedWord} addedWord={addedWord} points={points}/>
+			<Board placedWord={placedWord.word} addedWord={addedWord}/>
 
-			<Rack tiles={tiles} onPlay={calculate}/>
-			<section class="inputs">
-				<Input label="Rack Tiles" value={tiles} error={tilesError} onChange={validateTiles} maxLength={7}/>
-				<Input label="Placed Word" value={placedWord} error={placedWordError} onChange={placeWord} maxLength={15}/>
+			<Rack tiles={rack.tiles} onPlay={calculate}/>
+			<section className="inputs">
+				<Input label="Rack Tiles" value={rack.tiles} error={rack.error} showError={rack.showError} onChange={validateTiles} maxLength={7}/>
+				<Input label="Placed Word" value={placedWord.word} error={placedWord.error} showError={placedWord.showError} onChange={placeWord} maxLength={15}/>
 			</section>
 
 		</div>

@@ -1,6 +1,6 @@
 function PlacedWord({word}: {word: string}) {
     return (
-        <div class="placed-word">
+        <div className="placed-word">
             <p>{word}</p>
         </div>
     )

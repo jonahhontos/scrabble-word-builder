@@ -5,25 +5,16 @@ interface InputProps {
     value?: string,
     error?: string,
     maxLength?: number,
+    showError: boolean,
     onChange: (value: string) => void
 }
 
-function Input({label, value, error, maxLength, onChange}: InputProps) {
-    // const [internalValue, setInternalValue] = useState(value || '');
-
-    // function handleSubmit(e: Event) {
-    //     e.preventDefault();
-    //     onChange(internalValue);
-    // }
-
+function Input({label, value, error, maxLength, showError, onChange}: InputProps) {
     return (
-        <div class="input">
+        <div className="input">
             <label>{label}</label>
-
-                {/* <input type="text" value={internalValue} maxLength={maxLength || 15} onInput={(e) => setInternalValue((e.target as HTMLInputElement).value)} onBlur={handleSubmit}/> */}
-                <input type="text" maxLength={maxLength || 15} onInput={(e) => onChange((e.target as HTMLInputElement).value)}/>
-                {/* <button class="button" type="submit">✓</button> */}
-            {error && <span class="error">{error}</span>}
+            <input type="text" maxLength={maxLength || 15} value={value || ''} onInput={(e) => onChange((e.target as HTMLInputElement).value)}/>
+            <span className={'error' + (showError ? ' visible' : '')}>{error}</span>
         </div>
     )
 }

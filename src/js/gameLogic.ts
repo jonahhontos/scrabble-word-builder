@@ -38,6 +38,8 @@ dictionaryText.split('\n').forEach(entry => {
 dictionary.sort((a, b) => b.points - a.points);
 
 
+console.log('dictionary',dictionary)
+
 
 // Validator functions for placed words and rack tiles
 interface validationResult {
@@ -83,12 +85,12 @@ function validatePlacedWord(placedWord: string, rackTiles?: string): validationR
 
 function validateRackTiles(rackTiles: string, placedWord?: string): validationResult {
     const tiles = rackTiles.trim().toUpperCase();
-    if (!/^[a-zA-Z]+$/.test(tiles)) {
-        return { valid: false, error: 'Rack tiles must only contain letters!' };
-    }
-
     if (tiles.length < 1 || tiles.length > 7) {
         return { valid: false, error: 'Rack tiles must be between 1 and 7 characters!' };
+    }
+
+    if (!/^[a-zA-Z]+$/.test(tiles)) {
+        return { valid: false, error: 'Rack tiles must only contain letters!' };
     }
 
     if (!checkTileLimits([tiles, placedWord || ''])) {
@@ -119,6 +121,7 @@ function calculateHighestScoringWord(rackTiles: string, placedWord: string): { w
                 break;
             }
         }
+
         if (canForm) {
             return { word: entry.word, points: entry.points };
         }

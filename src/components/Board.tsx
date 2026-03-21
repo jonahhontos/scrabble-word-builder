@@ -1,22 +1,17 @@
 import PlacedWord from "./PlacedWord";
 import AddedWord from "./AddedWord";
+import Points from "./Points";
 
 interface BoardProps  {
     placedWord?: string,
     addedWord?: string,
-    points?: number,
 }
 
-function Board({placedWord, addedWord, points} : BoardProps) {
+function Board({placedWord, addedWord} : BoardProps) {
 	return (
-		<section class="board">
+		<section className="board">
             <PlacedWord word={placedWord || ''}/>
             <AddedWord word={addedWord || ''}/>
-
-            <div class="points">
-                <h5>Points:</h5>
-                <p>{points}</p>
-            </div>
         </section>
 	);
 }
