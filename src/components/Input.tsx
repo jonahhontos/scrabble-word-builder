@@ -2,18 +2,17 @@ import { useState } from "preact/hooks";
 
 interface InputProps {
     label: string,
-    value?: string,
     error?: string,
     maxLength?: number,
     showError: boolean,
     onChange: (value: string) => void
 }
 
-function Input({label, value, error, maxLength, showError, onChange}: InputProps) {
+function Input({label, error, maxLength, showError, onChange}: InputProps) {
     return (
         <div className="input">
             <label>{label}</label>
-            <input type="text" maxLength={maxLength || 15} value={value || ''} onInput={(e) => onChange((e.target as HTMLInputElement).value)}/>
+            <input type="text" maxLength={maxLength || 15} onInput={(e) => onChange((e.target as HTMLInputElement).value)}/>
             <span className={'error' + (showError ? ' visible' : '')}>{error}</span>
         </div>
     )

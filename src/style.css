@@ -10,7 +10,7 @@
 	--ui-theme-5: #F2F2F2;
 	--ui-error: #BD1E1E;
 
-	color: var(--ui-theme-5);
+	color: var(--ui-theme-4);
 	background-color: var(--ui-theme-1);
 
 	font-synthesis: none;
@@ -50,17 +50,13 @@ body {
 	margin: 4px 0;
 }
 
-.points {
-	position: absolute;
-	bottom: 16px;
-	margin: 0 auto;
-}
-
 .button {
 	background-color: transparent;
 	border: 1px solid var(--ui-theme-3);
 	color: var(--ui-theme-3);
-	padding: 4px 6px;
+	padding: 8px 24px;
+	font-size: 32px;
+	display: inline-block;
 }
 
 .button:hover {
@@ -71,9 +67,12 @@ body {
 input[type="text"] {
 	background-color: transparent;
 	border: 1px solid var(--ui-theme-3);
-	color: var(--ui-theme-5);
-	padding: 4px 6px;
+	color: var(--ui-theme-4);
+	padding: 12px 0;
 	text-transform: uppercase;
+	font-size: 32px;
+	max-width: 300px;
+	text-align: center;
 }
 
 .button:active {
@@ -99,6 +98,7 @@ input[type="text"] {
 }
 
 .error {
+	position: absolute;
 	display: block;
 	color: var(--ui-error);
 	font-size: 0.9em;
@@ -106,8 +106,45 @@ input[type="text"] {
 	padding: 4px 8px;
 	opacity: 0;
 	transition: opacity 0.3s ease;
+	width: 100%;
 }
 
 .error.visible {
 	opacity: 1;
+}
+
+.rack {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 48px;
+}
+
+.rack-tiles {
+	display: inline-block;
+	margin-right: 32px;
+	min-width: 480px;
+	border-bottom: 1px solid var(--ui-theme-3);
+	min-height: 83px;
+}
+
+.scrabble-tile {
+	position: relative;
+	border: 1px solid var(--ui-theme-4);
+	color: var(--ui-theme-4);
+	display: inline-block;
+	font-size: 24px;
+	padding: 14px 20px;
+	margin: 8px 4px;
+}
+
+.letter {
+	font-size: 24px;
+}
+
+.points {
+	position: absolute;
+	bottom: 4px;
+	right: 4px;
+	font-size: 12px;
 }

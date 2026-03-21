@@ -1,6 +1,5 @@
 import PlacedWord from "./PlacedWord";
 import AddedWord from "./AddedWord";
-import Points from "./Points";
 
 interface BoardProps  {
     placedWord?: string,

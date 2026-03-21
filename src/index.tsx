@@ -12,7 +12,6 @@ export function App() {
 	const [placedWord, setPlacedWord] = useState({ word: '', error: '', showError: false });
 	const [addedWord, setAddedWord] = useState('');
 	const [rack, setRack] = useState({ tiles: '', error: '', showError: false });
-	const [tick, setTick] = useState(0); // Used to force re-render for debounce
 
 	const rackRef = useRef('');
 	const placedRef = useRef('');
@@ -55,10 +54,8 @@ export function App() {
 		const highestScoringWord = calculateHighestScoringWord(rackRef.current, placedRef.current);
 		if (highestScoringWord) {
 			setAddedWord(highestScoringWord.word + ' (' + highestScoringWord.points + ' points)');
-			setTick(t => t + 1); // Force re-render to show updated points
 		} else {
 			setAddedWord('');
-			setTick(t => t + 1); // Force re-render to show updated points
 		}
 	}
 
@@ -68,8 +65,8 @@ export function App() {
 
 			<Rack tiles={rack.tiles} onPlay={calculate}/>
 			<section className="inputs">
-				<Input label="Rack Tiles" value={rack.tiles} error={rack.error} showError={rack.showError} onChange={validateTiles} maxLength={7}/>
-				<Input label="Placed Word" value={placedWord.word} error={placedWord.error} showError={placedWord.showError} onChange={placeWord} maxLength={15}/>
+				<Input label="Rack Tiles" error={rack.error} showError={rack.showError} onChange={validateTiles} maxLength={7}/>
+				<Input label="Placed Word" error={placedWord.error} showError={placedWord.showError} onChange={placeWord} maxLength={15}/>
 			</section>
 
 		</div>
