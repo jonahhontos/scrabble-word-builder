@@ -636,5 +636,3 @@ internationally
 recommendations
 reconsideration
 straightforward
-wiz
-wizard

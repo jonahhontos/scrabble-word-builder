@@ -4,7 +4,7 @@ import AddedWord from "./AddedWord";
 interface BoardProps  {
     placedWord?: string,
     addedWord?: string,
-    points?: number
+    points?: number,
 }
 
 function Board({placedWord, addedWord, points} : BoardProps) {

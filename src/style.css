@@ -1,13 +1,14 @@
 :root {
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	line-height: 1.5;
-	font-weight: 300;
+	font-weight: 400;
 
 	--ui-theme-1: #05070D;
 	--ui-theme-2: #263640;
 	--ui-theme-3: #5E7F8C;
 	--ui-theme-4: #A4B8BF;
 	--ui-theme-5: #F2F2F2;
+	--ui-error: #BD1E1E;
 
 	color: var(--ui-theme-5);
 	background-color: var(--ui-theme-1);
@@ -53,4 +54,39 @@ body {
 	position: absolute;
 	bottom: 16px;
 	margin: 0 auto;
+}
+
+.button {
+	background-color: transparent;
+	border: 1px solid var(--ui-theme-3);
+	color: var(--ui-theme-3);
+	padding: 4px 6px;
+}
+
+.button:hover {
+	border-color: var(--ui-theme-4);
+	color: var(--ui-theme-4);
+}
+
+input[type="text"] {
+	background-color: transparent;
+	border: 1px solid var(--ui-theme-3);
+	color: var(--ui-theme-5);
+	padding: 4px 6px;
+	text-transform: uppercase;
+}
+
+.button:active {
+	background-color: var(--ui-theme-3);
+	color: var(--ui-theme-5);
+}
+
+.error {
+	display: inline-block;
+	color: var(--ui-error);
+	font-size: 0.9em;
+	margin-top: 4px;
+	padding: 4px 8px;
+	border: 1px solid var(--ui-error);
+	border-radius: 4px;
 }
