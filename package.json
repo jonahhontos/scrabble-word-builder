@@ -17,9 +17,14 @@
   "main": "main.js",
   "scripts": {
     "start": "electron-forge start",
+    "start-dev": "set RUN_MODE=DEV && export RUN_MODE=DEV && concurrently 'npm run dev' 'npm start'",
     "test": "echo \"Error: no test specified\" && exit 1",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "make": "electron-forge make",
+    "postinstall": "cd preact-app && npm install",
+    "dev": "cd preact-app && npm run dev",
+    "build": "cd preact-app && npm run build",
+    "make-all": "npm run build && npm run make"
   },
   "dependencies": {
     "concurrently": "^9.2.1",

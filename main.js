@@ -1,21 +1,29 @@
 const express = require('express');
 const path = require('path');
 const expressApp = express();
-const PORT = 3000;
+const RUN_MODE = process.env.RUN_MODE;
+const PORT = RUN_MODE === 'DEV' ? 4000 : 3000;
+
 
 const { app, BrowserWindow } = require('electron/main')
 
-const filePath = path.join(__dirname, 'preact-app', 'dist', 'index.html');
+let server;
 
-expressApp.get('/', (req, res) => {
-  res.sendFile(filePath);
-});
+if (RUN_MODE !== 'DEV'){
+  const filePath = path.join(__dirname, 'preact-app', 'dist', 'index.html');
 
-expressApp.use(express.static(path.join(__dirname, 'preact-app', 'dist')));
+  expressApp.get('/', (req, res) => {
+    res.sendFile(filePath);
+  });
 
-expressApp.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+  const preactAppRoot = RUN_MODE === 'DEV' ? 'src' : 'dist';
+
+  expressApp.use(express.static(path.join(__dirname, 'preact-app', preactAppRoot)));
+
+  server = expressApp.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  });
+}
 
 
 const createWindow = () => {
@@ -24,7 +32,7 @@ const createWindow = () => {
     height: 900
   })
 
-  win.loadURL('http://127.0.0.1:3000')
+  win.loadURL(`http://localhost:${PORT}`)
 }
 
 app.whenReady().then(() => {
@@ -42,3 +50,9 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
+
+if (RUN_MODE !== 'DEV') {
+  app.on('closing', ()=> {
+    server.close();
+  })
+}
