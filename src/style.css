@@ -136,6 +136,7 @@ input[type="text"]:focus {
 	padding: 4px 8px;
 	opacity: 0;
 	transition: opacity 0.3s ease;
+	translate: 0 -5px;
 	width: 100%;
 }
 
@@ -143,7 +144,12 @@ input[type="text"]:focus {
 	opacity: 1;
 }
 
+.error.not-found {
+	top: -40px;
+}
+
 .rack {
+	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -168,6 +174,14 @@ input[type="text"]:focus {
 	margin: 8px 4px;
 	box-shadow: 0 0 5px var(--ui-theme-3);
 	min-width: 54px;
+	translate: 0 0;
+	opacity: 1;
+	transition: translate 0.3s ease, opacity 0.3s ease;
+}
+
+.scrabble-tile.transitioning {
+	translate: 20px 0;
+	opacity: 0;
 }
 
 .letter {

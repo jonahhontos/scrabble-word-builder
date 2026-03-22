@@ -4,13 +4,14 @@ import AddedWord from "./AddedWord";
 interface BoardProps  {
     placedWord?: string,
     addedWord?: string,
+    points?: number,
 }
 
-function Board({placedWord, addedWord} : BoardProps) {
+function Board({placedWord, addedWord, points} : BoardProps) {
 	return (
 		<section className="board">
             <PlacedWord word={placedWord || ''}/>
-            <AddedWord word={addedWord || ''}/>
+            <AddedWord word={addedWord || ''} points={points}/>
         </section>
 	);
 }

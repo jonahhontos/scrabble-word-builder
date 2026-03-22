@@ -1,5 +1,5 @@
 import { render } from 'preact';
-import { useState, useRef } from 'preact/hooks';
+import { useState, useRef, useEffect } from 'preact/hooks';
 
 import { validatePlacedWord, validateRackTiles, calculateHighestScoringWord } from './js/gameLogic';
 import Board from './components/Board';
@@ -10,13 +10,19 @@ import './style.css';
 
 export function App() {
 	const [placedWord, setPlacedWord] = useState({ word: '', error: '', showError: false });
-	const [addedWord, setAddedWord] = useState('');
+	const [addedWord, setAddedWord] = useState({ word: '', points: 0 });
+	const [points, setPoints] = useState(0);
 	const [rack, setRack] = useState({ tiles: '', error: '', showError: false });
+	const [notFound, setNotFound] = useState(false);
 
 	const rackRef = useRef('');
 	const placedRef = useRef('');
 	const placedWordDebounce = useRef<ReturnType<typeof setTimeout> | null>(null);
 	const rackDebounce = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+	useEffect(() => {
+		setPoints(addedWord.points);
+	}, [addedWord]);
 
 	function placeWord(word: string) {
 		placedWordDebounce.current && clearTimeout(placedWordDebounce.current);
@@ -56,17 +62,19 @@ export function App() {
 	function calculate() {
 		const highestScoringWord = calculateHighestScoringWord(rackRef.current, placedRef.current);
 		if (highestScoringWord) {
-			setAddedWord(highestScoringWord.word + ' ' + highestScoringWord.points); // Have to send both at once to get around Preact's batching of state updates
+			setAddedWord({ word: highestScoringWord.word, points: highestScoringWord.points }); // Have to send both at once to get around Preact's batching of state updates
 		} else {
-			setAddedWord('');
+			setAddedWord({ word: '', points: 0 });
+			setNotFound(true);
+			setTimeout(() => setNotFound(false), 2000);
 		}
 	}
 
 	return (
 		<div>
-			<Board placedWord={placedWord.word} addedWord={addedWord}/>
+			<Board placedWord={placedWord.word} addedWord={addedWord.word} points={points}/>
 
-			<Rack tiles={rack.tiles} onPlay={calculate}/>
+			<Rack tiles={rack.tiles} onPlay={calculate} notFound={notFound}/>
 			<section className="inputs">
 				<Input label="Rack Tiles" error={rack.error} showError={rack.showError} onChange={validateTiles} maxLength={7}/>
 				<Input label="Placed Word" error={placedWord.error} showError={placedWord.showError} onChange={placeWord} maxLength={15}/>
