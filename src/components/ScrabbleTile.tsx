@@ -1,7 +1,12 @@
-import letterData from '../assets/letter_data.json'
-import { useEffect, useLayoutEffect, useState } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
+interface lettersObject {
+    [key: string]: {
+        points: number,
+        count: number
+    }
+}
 
-function ScrabbleTile({ letter }: { letter: string }) {
+function ScrabbleTile({ letter, letterData }: { letter: string, letterData: lettersObject }) {
     const points = letterData[letter]?.points || 0;
     const [transitioning, setTransitioning] = useState(true);
 

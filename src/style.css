@@ -175,12 +175,14 @@ input[type="text"]:focus {
 	box-shadow: 0 0 5px var(--ui-theme-3);
 	min-width: 54px;
 	translate: 0 0;
+	scale: 1;
 	opacity: 1;
-	transition: translate 0.3s ease, opacity 0.3s ease;
+	transition: all 350ms ease;
 }
 
 .scrabble-tile.transitioning {
-	translate: 20px 0;
+	translate: 20px 10px;
+	scale: 1.15;
 	opacity: 0;
 }
 
