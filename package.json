@@ -1,5 +1,6 @@
 {
   "name": "scrabble-word-builder",
+  "productName": "Scrabble Word Builder",
   "version": "1.0.0",
   "description": "",
   "homepage": "https://github.com/jonahhontos/scrabble-word-builder#readme",
@@ -23,11 +24,14 @@
   "dependencies": {
     "concurrently": "^9.2.1",
     "electron-squirrel-startup": "^1.0.1",
-    "http-server": "^14.1.1"
+    "express": "^5.2.1",
+    "http-server": "^14.1.1",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "@electron-forge/cli": "^7.11.1",
     "@electron-forge/maker-deb": "^7.11.1",
+    "@electron-forge/maker-dmg": "^7.11.1",
     "@electron-forge/maker-rpm": "^7.11.1",
     "@electron-forge/maker-squirrel": "^7.11.1",
     "@electron-forge/maker-zip": "^7.11.1",
