@@ -639,3 +639,6 @@ straightforward
 wiz
 wizard
 world
+able
+male
+lame

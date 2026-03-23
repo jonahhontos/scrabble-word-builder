@@ -35,7 +35,14 @@ dictionaryText.split('\n').forEach(entry => {
 });
 
 // Sort the dictionary by points in descending order for better validation performance
-dictionary.sort((a, b) => b.points - a.points);
+dictionary.sort((a, b) => {
+    if (a.points !== b.points){
+        return b.points - a.points;
+    }
+
+    // If points are the same, sort by alphabetical order
+    return a.word.localeCompare(b.word);
+});
 
 
 console.log('dictionary',dictionary)
