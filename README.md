@@ -3,18 +3,18 @@
 
 ## Setup and Installation
 
-#### Windows
+### Windows
 
 To run the app on Windows, it will either need to be built on a Windows machine or alternatively, you can run the local Electron Dev (see next sections)
 
-#### Dev and Build Commands
+### Dev and Build Commands
 
 Before running any commands, be sure to install all dependencies:
 ```
 npm install
 ```
 
-###### Running in Dev Mode
+#### Running in Dev Mode
 
 To open a live-updating instance of Electron to test changes to the Preact app in a native window:
 ```
@@ -34,7 +34,7 @@ npm start
 ```
 </details>
 
-###### Creating New Builds
+#### Creating New Builds
 
 To build both the Preact app and the Electron standalone:
 ```
