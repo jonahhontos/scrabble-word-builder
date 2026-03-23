@@ -12,7 +12,7 @@ export function App() {
 	const [placedWord, setPlacedWord] = useState({ word: '', error: '', showError: false });
 	const [addedWord, setAddedWord] = useState({ word: '', points: 0 });
 	const [points, setPoints] = useState(0);
-	const [rack, setRack] = useState({ tiles: '', error: '', showError: false });
+	const [rack, setRack] = useState({ tiles: '', error: '', showError: true });
 	const [notFound, setNotFound] = useState(false);
 
 	const rackRef = useRef('');
@@ -71,10 +71,10 @@ export function App() {
 	}
 
 	return (
-		<div>
+		<div className="container">
 			<Board placedWord={placedWord.word} addedWord={addedWord.word} points={points}/>
 
-			<Rack tiles={rack.tiles} onPlay={calculate} notFound={notFound}/>
+			<Rack tiles={rack.tiles} onPlay={calculate} notFound={notFound} disablePlay={rack.showError || placedWord.showError}/>
 			<section className="inputs">
 				<Input label="Rack Tiles" error={rack.error} showError={rack.showError} onChange={validateTiles} maxLength={7}/>
 				<Input label="Placed Word" error={placedWord.error} showError={placedWord.showError} onChange={placeWord} maxLength={15}/>
