@@ -1,3 +1,4 @@
+// Imports and dependencies
 const express = require('express');
 const path = require('path');
 const expressApp = express();
@@ -5,8 +6,7 @@ const RUN_MODE = process.env.RUN_MODE;
 const PORT = RUN_MODE === 'DEV' ? 4000 : 3000;
 
 
-const { app, BrowserWindow } = require('electron/main')
-
+// Set up the local server for the Preact app
 let server;
 
 if (RUN_MODE !== 'DEV'){
@@ -25,6 +25,9 @@ if (RUN_MODE !== 'DEV'){
   });
 }
 
+
+// Initialize the Electron native window
+const { app, BrowserWindow } = require('electron/main')
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -45,6 +48,8 @@ app.whenReady().then(() => {
   })
 })
 
+
+// Clean up local Preact server when app is closed
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
