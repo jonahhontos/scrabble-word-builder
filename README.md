@@ -124,9 +124,9 @@ I designed this specifically to function as a desktop app, but as it could also 
 This app functions like a server for the rest of the app. It uses a simple Express server to host the app locally, and then loads this in a native browser view. I chose to use this in order to make the app executable, as per the requirements.
 
 ### NPM Scripts
-As this project involves two separate apps with separate build processes, I also made a good amount of customizations to the npm scripts.
+As this project involves two separate apps with separate build processes, I also made a few customizations to the npm scripts.
 
-In my initial development, I was focused on creating just the Preact app and game logic, and later added Electron. I did things this way to ensure I had something deliverable before the deadline, and I wasn't sure how involved the Electron setup would be. Knowing what I know now, I would have probably just started off with both from the get-go.
+In my initial development, I was focused on creating just the Preact app and game logic, and later added Electron. I did things this way to ensure I had something deliverable before the deadline, as I wasn't sure how involved the Electron setup would be. Knowing what I know now, I would have probably just started off with both from the get-go.
 
 That being said, the Preact app is nested within the Electron app, with its own separate dependencies and build processes, and I added in new scripts to streamline things, allowing all dependencies to be installed from the root folder, and allowing both projects to be built or run in dev with single commands; the result being that in ideal circumstances, it should only take two CLI commands to go from a freshly cloned repo to a running app.
 
