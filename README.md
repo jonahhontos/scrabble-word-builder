@@ -14,6 +14,7 @@ Before running any commands, be sure to install all dependencies:
 npm install
 ```
 
+
 #### Running in Dev Mode
 
 To open a live-updating instance of Electron to test changes to the Preact app in a native window:
@@ -39,6 +40,7 @@ npm start
 
 </details>
 
+
 #### Creating New Builds
 
 To build both the Preact app and the Electron standalone:
@@ -63,3 +65,5 @@ npm run make
 ```
 
 </details>
+
+
