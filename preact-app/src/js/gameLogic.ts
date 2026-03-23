@@ -10,7 +10,7 @@ interface DictionaryEntry {
 
 // Process the dictionary text into an array of DictionaryEntry objects and a Set of valid words for quick lookup
 let dictionary: DictionaryEntry[] = [];
-let dictionaryWords: Set<string> = new Set(); 
+let dictionaryWords: Set<string> = new Set(); // Set for quick lookup
 
 dictionaryText.split('\n').forEach(entry => {
     const word = entry.trim().toUpperCase();
@@ -44,8 +44,6 @@ dictionary.sort((a, b) => {
     return a.word.localeCompare(b.word);
 });
 
-
-console.log('dictionary',dictionary)
 
 
 // Validator functions for placed words and rack tiles

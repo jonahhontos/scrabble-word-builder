@@ -95,6 +95,7 @@ body {
 	color: var(--ui-theme-3);
 	background-color: transparent;
 	box-shadow: none;
+	text-shadow: none;
 }
 
 .button:hover {
