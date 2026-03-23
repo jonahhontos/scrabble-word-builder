@@ -69,7 +69,7 @@ The resulting installers or executables will be located in `./out/make`
 To build just the Preact app:
 
 ```
-npm rum build
+npm run build
 ```
 
 To build the Electron standalone from the most recently built Preact app:
